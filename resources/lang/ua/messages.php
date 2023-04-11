@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'menu_main' => 'Головна',
+    'menu_contacts' => 'Контакти',
+    'menu_clients' => 'Клієнти',
+    'menu_about' => 'Про нас',
+    'hero_greeting' => 'Вітаємо на нашему сайті',
+    'aside_header' => 'Бокова панельь',
+];
