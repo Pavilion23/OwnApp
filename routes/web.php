@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
-use App\Models\Contact;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -16,10 +14,10 @@ Route::get('/about', function () {
 })->name('abort');
 
 Route::get('/lang/{locale}', function(string $locale) {
-    if (in_array($locale, Config::get('app.locales'))) {
+    if (in_array($locale, Config('app.locales'))) {
         Session::put('locale', $locale);
     }
-    else Session::put('locale', Config::get('app.locale'));
+    else Session::put('locale', Config('app.locale'));
     
     return redirect()->back();
 })->name('lang.change');

@@ -26,7 +26,8 @@ class Localization
         App::setLocale(Session::get('locale'));*/
 
         if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+            //App::setLocale(Session::get('locale'));
+            App::setLocale(Session('locale'));
         }
         return $next($request);
     }

@@ -13,5 +13,6 @@
         <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('lang.change', ['locale' => 'ru']) }}">Русский</a>
         <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('lang.change', ['locale' => 'en']) }}">English</a>
       </nav>
-      <h3>{{ Session::get('locale') }}</h3>
+      <!-- <h3>{{ Session::get('locale') }}</h3> -->
+      <h3>{{ Session('locale') }}</h3>
     </div>
