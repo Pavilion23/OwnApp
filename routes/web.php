@@ -9,19 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('home');
-})->name('home-route');
+})->name('home');
 
 Route::get('/about', function () {
     return view('about');
-})->name('abort-route');
-
-Route::get('/contact', function () {
-    return view('contact', ['data' => Contact::all()]);
-})->name('contact-route');
-
-Route::get('/contact/add', function() {
-    return view('contact-add');
-})->name('contact-add');
+})->name('abort');
 
 Route::get('/lang/{locale}', function(string $locale) {
     if (in_array($locale, Config::get('app.locales'))) {
@@ -30,20 +22,28 @@ Route::get('/lang/{locale}', function(string $locale) {
     else Session::put('locale', Config::get('app.locale'));
     
     return redirect()->back();
-})->name('lang-change');
+})->name('lang.change');
 
 Route::controller(ContactController::class)->group(function() {
-    Route::post('/contact-form', 'submit')->name('contact-form-submit');
-    Route::post('/contact-update/{id}', 'updateContact')->name('contact-update-submit');
-    Route::get('/contact/delete/{id}', 'deleteContact')->name('contact-delete');
-    Route::get('/contact/update/{id}', 'contactUpdate')->name('contact-update');
+    Route::get('/contacts', 'index')->name('contacts.index');
+    Route::get('/contacts/create', 'create')->name('contacts.create');  
+    Route::post('/contacts', 'store')->name('contacts.store');
+    Route::get('/contacts/{id}/edit', 'edit')->name('contacts.edit');
+    Route::post('/contacts/{id}', 'update')->name('contacts.update');
+    Route::get('/contacts/{id}', 'destroy')->name('contacts.destroy'); 
 });
 
 Route::controller(ClientController::class)->group( function () {
-    Route::get('/client', 'client')->name('client-route');
-    Route::get('/client/add', 'clientAdd')->name('clientAdd');
-    Route::post('client-form','addClient')->name('client-form-submit');
-    Route::get('/client/delete/{id}', 'deleteClient')->name('client-delete');
-    Route::get('/client/update/{id}', 'clientUpdate')->name('client-edit');
-    Route::post('/client-update/{id}','updateClient')->name('client-update');
+    Route::get('/clients', 'index')->name('clients.index');
+    Route::get('/clients/create', 'create')->name('clients.create');
+    Route::post('/clients', 'store')->name('clients.store');
+    Route::get('/clients/{id}/edit', 'edit')->name('clients.edit');
+    Route::post('/clients/{id}', 'update')->name('clients.update');
+    Route::get('/clients/{id}', 'destroy')->name('clients.destroy');
+
+    //Route::get('/client/add', 'clientAdd')->name('client-add');
+    //Route::post('client-form','addClient')->name('client-form-submit');
+    //Route::get('/client/delete/{id}', 'deleteClient')->name('client-delete');
+    //Route::get('/client/update/{id}', 'clientUpdate')->name('client-edit');
+    //Route::post('/client-update/{id}','updateClient')->name('client-update');
 });

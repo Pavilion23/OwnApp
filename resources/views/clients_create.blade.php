@@ -3,8 +3,7 @@
 @section('title')Добавлення клієнта@endsection
 
 @section('content')
-
-    <form action="{{ route('client-form-submit') }}" class="mr-3" method="post">
+    <form action="{{ route('clients.store') }}" class="mr-3" method="post">
         @csrf
 
         <div class="form-group">
@@ -47,7 +46,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="mt-3 btn btn-danger">Зберігтиь</button>
+        <button type="submit" class="mt-3 btn btn-danger">Save</button>
     </form>
-    <a href="{{ route('client-route') }}"><button class="mt-3 btn btn-warning">Відміна</button></a>
+    <a href="{{ route('clients.index') }}"><button class="mt-3 btn btn-warning">Відміна</button></a>
 @endsection

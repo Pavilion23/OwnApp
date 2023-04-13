@@ -5,22 +5,27 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Http\Resources\ClientCollection;
 use App\Http\Resources\ClientResource;
-use App\Models\client;
+use App\Models\Client;
 use GrahamCampbell\ResultType\Success;
 use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class ClientController extends Controller
 {
-    public function client () {
-        return view ('client', ['data' => client::all()]);
+    public function index () {
+        return view ('clients', ['data' => Client::all()]);
     }
 
-    public function clientAdd () {
-        return view('client-add');
+    public function create () {
+        return view('clients_create');
     }
 
-    public function addClient(ClientRequest $Req) {
-        $client = new client();
+    public function destroy($id) {
+        Client::find($id)->delete();
+        return redirect()->route('clients.index')->with('success', 'Клієнта видалено.');
+    }
+
+    public function store(ClientRequest $Req) {
+        $client = new Client();
         $client->client      = $Req->input('client');
         $client->adres       = $Req->input('adres');
         $client->edrpou      = $Req->input('edrpou');
@@ -32,21 +37,15 @@ class ClientController extends Controller
             $client->platnyk_pdv = false;
 
         $client->save();
-        
-        return redirect()->route('client-route')->with('success', 'Клієнт успішно добавлений.');
+        return redirect()->route('clients.index')->with('success', 'Клієнт успішно добавлений.');
     }
 
-    public function deleteClient($id) {
-        client::find($id)->delete();
-        return redirect()->route('client-route')->with('success', 'Клієнта видалено.');
+    public function edit($id) {
+        return view('clients_update', ['data' => Client::find($id)]);
     }
 
-    public function clientUpdate($id) {
-        return view('client-update', ['data' => client::find($id)]);
-    }
-
-    public function updateClient($id, ClientRequest $Req) {
-        $client = client::find($id);
+    public function update($id, ClientRequest $Req) {
+        $client = Client::find($id);
         $client->client      = $Req->input('client');
         $client->adres       = $Req->input('adres');
         $client->edrpou      = $Req->input('edrpou');
@@ -58,15 +57,13 @@ class ClientController extends Controller
             $client->platnyk_pdv = false;
 
         $client->save();
-
-        return redirect()->route('client-route')->with('seccess', 'Клієнт успішно оновлено.');
-
+        return redirect()->route('clients.index')->with('success', 'Клієнт успішно оновлено.');
     }
 
     //api
 
     public function getClient($id) {
-        $client = client::find($id);
+        $client = Client::find($id);
 
         if(!$client) {
             return response()->json([

@@ -9,7 +9,15 @@ use App\Models\Contact;
 
 class ContactController extends Controller
 {
-    public function submit(ContactRequest $Req) {
+    public function index() {
+        return view('contacts', ['data' => Contact::all()]);
+    }
+
+    public function create() {
+        return view('contacts_create');
+    }
+
+    public function store(ContactRequest $Req) {
         $contact = new Contact();
         $contact->name = $Req->input('name');
         $contact->email = $Req->input('email');
@@ -17,10 +25,10 @@ class ContactController extends Controller
         $contact->message = $Req->input('message');
         $contact->save();
 
-        return redirect()->route('contact-route')->with('success', 'Contact added.');
+        return redirect()->route('contacts.index')->with('success', 'Contact added.');
     }
 
-    public function updateContact($id, ContactRequest $Req) {
+    public function update($id, ContactRequest $Req) {
         $contact = Contact::find($id);
         $contact->name = $Req->input('name');
         $contact->email = $Req->input('email');
@@ -28,16 +36,16 @@ class ContactController extends Controller
         $contact->message = $Req->input('message');
         $contact->save();
 
-        return redirect()->route('contact-route')->with('success', 'Запись успешно обновлена');
+        return redirect()->route('contacts.index')->with('success', 'Запись успешно обновлена');
     }
 
-    public function deleteContact($id) {
+    public function destroy($id) {
         Contact::find($id)->delete();
-        return redirect()->route('contact-route')->with('success', 'Запись успешно удалена');
+        return redirect()->route('contacts.index')->with('success', 'Запись успешно удалена');
     }
 
-    public function contactUpdate ($id) {
-        return view('contact-update', ['data' => Contact::find($id)]);
+    public function edit ($id) {
+        return view('contacts_update', ['data' => Contact::find($id)]);
     }
 
     //api 

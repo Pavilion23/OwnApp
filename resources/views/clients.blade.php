@@ -4,7 +4,7 @@
 
 @section('content')
     <h3>Перелік клієнтів</h3>
-    <a href="{{ route('clientAdd') }}"><button class="mb-3 btn btn-info">Добавити нового клієнта</button></a>
+    <a href="{{ route('clients.create') }}"><button class="mb-3 btn btn-info">Добавити нового клієнта</button></a>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -29,8 +29,8 @@
                     <p><b>Не платник ПДВ</b></p>
                 @endif
                 <p>Размір статутного фонду : <b>{{ $client->statut_fond }}</b></p>
-                <a href="{{ route('client-edit', $client->id) }}"><button class="btn btn-warning">Редагувати</button></a>
-                <a href="{{ route('client-delete', $client->id) }}"><button class="btn btn-danger">Видалити</button></a>
+                <a href="{{ route('clients.edit', $client->id) }}"><button class="btn btn-warning">Редагувати</button></a>
+                <a href="{{ route('clients.destroy', $client->id) }}"><button class="btn btn-danger">Видалити</button></a>
             </div>       
         @endforeach
     @endif

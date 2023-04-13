@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('client-update', $data->id) }}" class="mt-3" method="post">
+    <form action="{{ route('clients.update', $data->id) }}" class="mt-3" method="post">
         @csrf
 
         <label for="client">Найменування клієнта</label>
@@ -42,7 +42,8 @@
         <input type="text" value="{{ $data->statut_fond }}" name="statut_fond" id="statut_fond" class="form-control">
 
         <button type="submit" class="mt-3 btn btn-warning">Зберігти</button>
-        <a href="{{ route('client-route') }}"><button class="mt-3 btn btn-info">Відміна</button></a>
+        
+        <a href="{{ route('clients.index') }}"><button class="mb-3 btn btn-info">Відміна</button></a>
     </form>
 
 @endsection
