@@ -27,8 +27,8 @@ Route::controller(ContactController::class)->group(function() {
     Route::get('/contacts/create', 'create')->name('contacts.create');  
     Route::post('/contacts', 'store')->name('contacts.store');
     Route::get('/contacts/{id}/edit', 'edit')->name('contacts.edit');
-    Route::post('/contacts/{id}', 'update')->name('contacts.update');
-    Route::get('/contacts/{id}', 'destroy')->name('contacts.destroy'); 
+    Route::put('/contacts/{id}', 'update')->name('contacts.update');
+    Route::delete('/contacts/{id}', 'destroy')->name('contacts.destroy'); 
 });
 
 Route::controller(ClientController::class)->group( function () {
@@ -36,8 +36,8 @@ Route::controller(ClientController::class)->group( function () {
     Route::get('/clients/create', 'create')->name('clients.create');
     Route::post('/clients', 'store')->name('clients.store');
     Route::get('/clients/{id}/edit', 'edit')->name('clients.edit');
-    Route::post('/clients/{id}', 'update')->name('clients.update');
-    Route::get('/clients/{id}', 'destroy')->name('clients.destroy');
+    Route::put('/clients/{id}', 'update')->name('clients.update');
+    Route::delete('/clients/{id}', 'destroy')->name('clients.destroy');
 
     //Route::get('/client/add', 'clientAdd')->name('client-add');
     //Route::post('client-form','addClient')->name('client-form-submit');
